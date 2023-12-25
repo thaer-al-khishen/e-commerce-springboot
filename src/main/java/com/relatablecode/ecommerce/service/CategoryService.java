@@ -4,6 +4,7 @@ import com.relatablecode.ecommerce.dto.CategoryDTO;
 import com.relatablecode.ecommerce.dto.ProductDTO;
 import com.relatablecode.ecommerce.model.Category;
 import com.relatablecode.ecommerce.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,14 @@ import java.util.stream.Collectors;
 @Service
 public class CategoryService {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    public CategoryService(CategoryRepository categoryRepository, ModelMapper modelMapper) {
+        this.categoryRepository = categoryRepository;
+        this.modelMapper = modelMapper;
+    }
 
     public List<CategoryDTO> getAllCategories() {
         return categoryRepository.findAll().stream()
