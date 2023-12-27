@@ -33,11 +33,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        // Skip filter for login requests
-        if ("/api/auth/login".equals(path)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+        //Conditional formatting for some requests if needed
+//        if ("/api/auth/login".equals(path)) {
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
