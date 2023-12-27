@@ -1,5 +1,6 @@
 package com.relatablecode.ecommerce.auth.configs;
 
+import com.relatablecode.ecommerce.auth.CustomAuthenticationEntryPoint;
 import com.relatablecode.ecommerce.auth.CustomAuthenticationProvider;
 import com.relatablecode.ecommerce.auth.jwt.JwtAuthenticationFilter;
 import com.relatablecode.ecommerce.auth.user.UserDetailsServiceImpl;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,10 +30,13 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter authFilter;
 
-    public SecurityConfig(PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, JwtAuthenticationFilter authFilter) {
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+    public SecurityConfig(PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService, JwtAuthenticationFilter authFilter, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.authFilter = authFilter;
+        this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
     }
 
     @Bean
@@ -57,6 +62,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+                .exceptionHandling(it -> it.authenticationEntryPoint(customAuthenticationEntryPoint))
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
