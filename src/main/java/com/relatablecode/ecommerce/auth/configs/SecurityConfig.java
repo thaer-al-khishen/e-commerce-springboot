@@ -51,6 +51,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/auth/**").permitAll();
+                    auth.requestMatchers("/api/admin/**").hasAuthority("ADMIN");
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session
