@@ -31,12 +31,14 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
-    runtimeOnly 'mysql:mysql-connector-java' // Or your database driver
+    runtimeOnly 'mysql:mysql-connector-java:8.0.32' // Or your database driver
 
 
     //Security and JWT
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1'
 
+    implementation project(':test-module-1')
+    implementation project(':test-module-2')
 
 }
 
