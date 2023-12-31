@@ -1,14 +1,13 @@
 package com.relatablecode.ecommerce;
 
+import com.relatablecode.ecommerce.GreetServiceGrpc;
+import com.relatablecode.ecommerce.GreetRequest;
+import com.relatablecode.ecommerce.GreetResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class ECommerceApplication {
-
-    public static void main(String[] args) {
+//public class GrpcClient {
+//    public static void main(String[] args) {
 //        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
 //                .usePlaintext()
 //                .build();
@@ -23,7 +22,5 @@ public class ECommerceApplication {
 //        System.out.println(response.getGreeting());
 //
 //        channel.shutdown();
-        SpringApplication.run(ECommerceApplication.class, args);
-    }
-
-}
+//    }
+//}
